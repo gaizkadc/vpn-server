@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: vpn-server
+  namespace: __NPH_NAMESPACE
+  labels:
+    component: vpn-server
+spec:
+  selector:
+    cluster: management
+    component: vpn-server
+  ports:
+    - name: vpn-a
+      port: 443
+      protocol: TCP
+    - name: vpn-b
+      port: 5555
+      protocol: TCP
+  type: LoadBalancer

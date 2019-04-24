@@ -1,0 +1,34 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  labels:
+    cluster: management
+    component: vpn-server
+  name: vpn-server
+  namespace: __NPH_NAMESPACE
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      cluster: management
+      component: vpn-server
+  template:
+    metadata:
+      labels:
+        cluster: management
+        component: vpn-server
+    spec:
+      containers:
+        - name: vpn-server
+          image: __NPH_REGISTRY/__NPH_REGISTRY_NAMESPACE/vpn-server:__NPH_VERSION
+          imagePullPolicy: Always
+          securityContext:
+            runAsUser: 0
+          ports:
+            - containerPort: 443
+              name: vpn-a
+              protocol: TCP
+            - containerPort: 5555
+              name: vpn-b
+              protocol: TCP
