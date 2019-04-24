@@ -1,2 +1,2 @@
-# vpn-server
-A VPN server for the Edge Inventory
+# Nalej-bus
+A VPN server for the Edge Inventory.
