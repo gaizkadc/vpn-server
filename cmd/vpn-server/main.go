@@ -1,8 +1,6 @@
 /*
- * Copyright (C) 2018 Nalej - All Rights Reserved
+ * Copyright (C) 2019 Nalej - All Rights Reserved
  */
-
-// This is an example of an executable command.
 
 package main
 

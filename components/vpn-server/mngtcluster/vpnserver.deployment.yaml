@@ -3,25 +3,25 @@ apiVersion: apps/v1
 metadata:
   labels:
     cluster: management
-    component: softether-vpn
-  name: softether-vpn
-  namespace: nalej
+    component: vpn-server
+  name: vpn-server
+  namespace: __NPH_NAMESPACE
 spec:
   replicas: 1
   revisionHistoryLimit: 10
   selector:
     matchLabels:
       cluster: management
-      component: softether-vpn
+      component: vpn-server
   template:
     metadata:
       labels:
         cluster: management
-        component: softether-vpn
+        component: vpn-server
     spec:
       containers:
-        - name: softether-vpn
-          image: nalejdev.azurecr.io/gaizka/softether-vpn:test
+        - name: vpn-server
+          image: __NPH_REGISTRY/__NPH_REGISTRY_NAMESPACE/vpn-server:__NPH_VERSION
           imagePullPolicy: Always
           securityContext:
             runAsUser: 0
@@ -32,8 +32,3 @@ spec:
             - containerPort: 5555
               name: vpn-b
               protocol: TCP
-            - containerPort: 9992
-              name: vpn-c
-              protocol: TCP
-      imagePullSecrets:
-        - name: nalej-dev-registry
