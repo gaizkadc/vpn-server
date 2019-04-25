@@ -5,8 +5,8 @@
 package main
 
 import (
-	"github.com/nalej/golang-template/cmd/example-app/commands"
-	"github.com/nalej/golang-template/version"
+	"github.com/nalej/vpn-server/cmd/vpn-server/commands"
+	"github.com/nalej/vpn-server/version"
 )
 
 var MainVersion string
