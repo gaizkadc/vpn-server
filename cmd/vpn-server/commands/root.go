@@ -18,7 +18,7 @@ var debugLevel bool
 var consoleLogging bool
 
 var rootCmd = &cobra.Command{
-	Use:   "",
+	Use:   "vpn-server",
 	Short: "Service Net VPN server",
 	Long:  `Service Net VPN server`,
 	Version: "unknown-version",

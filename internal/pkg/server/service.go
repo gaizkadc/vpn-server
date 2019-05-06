@@ -6,7 +6,7 @@ package server
 
 import (
 	"fmt"
-	grpc_vpn_server_go "github.com/nalej/grpc-vpn-server-go"
+	"github.com/nalej/grpc-vpn-server-go"
 	"github.com/nalej/vpn-server/internal/pkg/config"
 	"github.com/nalej/vpn-server/internal/pkg/server/vpn"
 	"github.com/rs/zerolog/log"

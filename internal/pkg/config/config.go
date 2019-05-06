@@ -15,10 +15,12 @@ type Config struct {
 	Debug bool
 	// Port where the gRPC API service will listen requests.
 	Port int
+	// TODO extend description
 	// VPNServerAddress
 	VPNServerAddress string
 	// VPNServerPassword
 	VPNServerPassword string
+	// TODO Remove
 	// Username
 	Username string
 }
@@ -33,6 +35,8 @@ func (conf *Config) Validate() derrors.Error {
 		return derrors.NewInvalidArgumentError("VPNServerAddress must be set")
 	}
 
+	// TODO Add extra validation
+
 	return nil
 }
 
@@ -40,4 +44,6 @@ func (conf *Config) Print() {
 	log.Info().Str("app", version.AppVersion).Str("commit", version.Commit).Msg("Version")
 	log.Info().Int("port", conf.Port).Msg("gRPC port")
 	log.Info().Str("URL", conf.VPNServerAddress).Msg("VPN Server")
+
+	// TODO Print all parameters in the config
 }
