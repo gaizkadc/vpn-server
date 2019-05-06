@@ -23,10 +23,10 @@ var rootCmd = &cobra.Command{
 	Long:  `Service Net VPN server`,
 	Version: "unknown-version",
 
-	//Run: func(cmd *cobra.Command, args []string) {
-	//	SetupLogging()
-	//	log.Info().Msg("This is a root message")
-	//},
+	Run: func(cmd *cobra.Command, args []string) {
+		SetupLogging()
+		cmd.Help()
+	},
 }
 
 func init() {
