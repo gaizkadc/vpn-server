@@ -15,11 +15,11 @@ var cfg = config.Config{}
 
 var runCmd = &cobra.Command{
 	Use:   "run",
-	Short: "Launch the Edge Controller API",
-	Long:  `Launch the Edge Controller API`,
+	Short: "Launch the VPN Server",
+	Long:  `Launch the VPN Server`,
 	Run: func(cmd *cobra.Command, args []string) {
 		SetupLogging()
-		log.Info().Msg("Launching API!")
+		log.Info().Msg("Launching VPN Server!")
 		cfg.Debug = debugLevel
 		server := server.NewService(cfg)
 		server.Run()
@@ -28,6 +28,6 @@ var runCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(runCmd)
-	runCmd.Flags().IntVar(&cfg.Port, "port", 5555, "Port to receive management communications")
+	runCmd.Flags().IntVar(&cfg.VPNServerPort, "port", 5666, "Port to receive management communications")
 	runCmd.PersistentFlags().StringVar(&cfg.VPNServerAddress, "vpnServerAddress", "localhost", "VPN Server Address")
 }

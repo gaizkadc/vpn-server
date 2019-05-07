@@ -34,7 +34,7 @@ func (s *Service) Run() error {
 	}
 	s.Configuration.Print()
 
-	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", s.Configuration.Port))
+	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", s.Configuration.VPNServerPort))
 	if err != nil {
 		log.Fatal().Errs("failed to listen: %v", []error{err})
 	}
@@ -53,7 +53,7 @@ func (s *Service) Run() error {
 		// Register reflection service on gRPC server.
 		reflection.Register(grpcServer)
 	}
-	log.Info().Int("port", s.Configuration.Port).Msg("Launching gRPC server")
+	log.Info().Int("port", s.Configuration.VPNServerPort).Msg("Launching gRPC server")
 
 	if err := grpcServer.Serve(lis); err != nil {
 		log.Fatal().Errs("failed to serve: %v", []error{err})

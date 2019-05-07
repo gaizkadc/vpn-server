@@ -13,21 +13,17 @@ import (
 type Config struct {
 	// Debug level is active.
 	Debug bool
-	// Port where the gRPC API service will listen requests.
-	Port int
-	// TODO extend description
-	// VPNServerAddress
+	// Port where the gRPC API service will listen requests
+	VPNServerPort int
+	// URL of the VPN server
 	VPNServerAddress string
 	// VPNServerPassword
 	VPNServerPassword string
-	// TODO Remove
-	// Username
-	Username string
 }
 
 func (conf *Config) Validate() derrors.Error {
 
-	if conf.Port <= 0 {
+	if conf.VPNServerPort <= 0 {
 		return derrors.NewInvalidArgumentError("port must be valid")
 	}
 
@@ -35,15 +31,16 @@ func (conf *Config) Validate() derrors.Error {
 		return derrors.NewInvalidArgumentError("VPNServerAddress must be set")
 	}
 
-	// TODO Add extra validation
+	if conf.VPNServerPassword == "" {
+		return derrors.NewInvalidArgumentError("VPNServerPassword must be set")
+	}
 
 	return nil
 }
 
 func (conf *Config) Print() {
 	log.Info().Str("app", version.AppVersion).Str("commit", version.Commit).Msg("Version")
-	log.Info().Int("port", conf.Port).Msg("gRPC port")
+	log.Info().Int("port", conf.VPNServerPort).Msg("gRPC port")
 	log.Info().Str("URL", conf.VPNServerAddress).Msg("VPN Server")
-
-	// TODO Print all parameters in the config
+	log.Info().Str("password", conf.VPNServerPassword).Msg("VPN Server Password")
 }

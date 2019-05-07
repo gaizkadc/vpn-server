@@ -25,13 +25,13 @@ func NewHandler(manager Manager) *Handler {
 
 
 func (h *Handler) AddVPNUser(ctx context.Context, request *grpc_vpn_server_go.AddVPNUserRequest) (*grpc_vpn_server_go.VPNUser, error) {
-	// TODO Fix log entry, show organization_id, username
-	log.Debug().Str("vpnServerHostname", request.Url.Hostname).Str("port", request.Url.Port).Msg("add vpn request")
 
 	verr := entities.ValidAddVPNUserRequest(request)
 	if verr != nil {
 		return nil, conversions.ToGRPCError(verr)
 	}
+	// TODO Fix log entry, show organization_id, username
+	log.Debug().Str("username", request.Url.Hostname).Msg("add user vpn request")
 	response, err := h.manager.AddVPNUser(*request)
 	if err != nil{
 		return nil, err
@@ -42,13 +42,13 @@ func (h *Handler) AddVPNUser(ctx context.Context, request *grpc_vpn_server_go.Ad
 }
 
 func (h *Handler) DeleteVPNUser(ctx context.Context, request *grpc_vpn_server_go.DeleteVPNUserRequest) (*grpc_common_go.Success, error) {
-	// TODO Fix log entry, show organization_id, username
-	log.Debug().Str("vpnServerHostname", request.Url.Hostname).Str("port", request.Url.Port).Msg("add vpn request")
 
 	verr := entities.ValidDeleteVPNUserRequest(request)
 	if verr != nil {
 		return nil, conversions.ToGRPCError(verr)
 	}
+	// TODO Fix log entry, show organization_id, username
+	log.Debug().Str("username", request.Username).Msg("delete user vpn request")
 	response, err := h.manager.DeleteVPNUser(*request)
 	if err != nil{
 		return nil, err
@@ -59,13 +59,13 @@ func (h *Handler) DeleteVPNUser(ctx context.Context, request *grpc_vpn_server_go
 }
 
 func (h *Handler) ListVPNUsers(ctx context.Context, request *grpc_vpn_server_go.GetVPNUserListRequest) (*grpc_vpn_server_go.VPNUserList, error) {
-	// TODO Fix log entry, show organization_id
-	log.Debug().Str("vpnServerHostname", request.Url.Hostname).Str("port", request.Url.Port).Msg("add vpn request")
 
 	verr := entities.ValidGetVPNUserListRequest(request)
 	if verr != nil {
 		return nil, conversions.ToGRPCError(verr)
 	}
+	// TODO Fix log entry, show organization_id
+	log.Debug().Str("vpnServerHostname", request.Url.Hostname).Str("port", request.Url.Port).Msg("list vpn users request")
 	response, err := h.manager.ListVPNUsers(*request)
 	if err != nil{
 		return nil, err
