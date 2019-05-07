@@ -30,14 +30,14 @@ func (h *Handler) AddVPNUser(ctx context.Context, request *grpc_vpn_server_go.Ad
 	if verr != nil {
 		return nil, conversions.ToGRPCError(verr)
 	}
-	// TODO Fix log entry, show organization_id, username
-	log.Debug().Str("username", request.Url.Hostname).Msg("add user vpn request")
+
+	log.Debug().Str("organization_id", request.OrganizationId).Str("username", request.Username).Msg("add user vpn request")
 	response, err := h.manager.AddVPNUser(*request)
 	if err != nil{
 		return nil, err
 	}
-	// TODO show organization_id
-	log.Debug().Str("username", response.Username).Msg("user has been created")
+
+	log.Debug().Str("organization_id", request.OrganizationId).Str("username", response.Username).Msg("user has been created")
 	return response, nil
 }
 
@@ -47,14 +47,14 @@ func (h *Handler) DeleteVPNUser(ctx context.Context, request *grpc_vpn_server_go
 	if verr != nil {
 		return nil, conversions.ToGRPCError(verr)
 	}
-	// TODO Fix log entry, show organization_id, username
-	log.Debug().Str("username", request.Username).Msg("delete user vpn request")
+
+	log.Debug().Str("organization_id", request.OrganizationId).Str("username", request.Username).Msg("delete user vpn request")
 	response, err := h.manager.DeleteVPNUser(*request)
 	if err != nil{
 		return nil, err
 	}
-	// TODO Fix log entry, show organization_id, username
-	log.Debug().Interface("response", response).Msg("user has been deleted")
+
+	log.Debug().Str("organization_id", request.OrganizationId).Msg("user has been deleted")
 	return response, nil
 }
 
@@ -64,17 +64,15 @@ func (h *Handler) ListVPNUsers(ctx context.Context, request *grpc_vpn_server_go.
 	if verr != nil {
 		return nil, conversions.ToGRPCError(verr)
 	}
-	// TODO Fix log entry, show organization_id
-	log.Debug().Str("vpnServerHostname", request.Url.Hostname).Str("port", request.Url.Port).Msg("list vpn users request")
+
+	log.Debug().Str("organization_id", request.OrganizationId).Msg("list vpn users request")
 	response, err := h.manager.ListVPNUsers(*request)
 	if err != nil{
 		return nil, err
 	}
 
-	for i := range response.Username {
-		log.Debug().Str("username", response.Username [i]).Msg("username")
-	}
-	// TODO change log organization_id, len(response.Usernames)
+	log.Debug().Str("organization_id", request.OrganizationId).Int("usernames len", len(response.Usernames)).Msg("vpn users list")
+
 	return response, nil
 }
 

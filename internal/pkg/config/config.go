@@ -31,10 +31,6 @@ func (conf *Config) Validate() derrors.Error {
 		return derrors.NewInvalidArgumentError("VPNServerAddress must be set")
 	}
 
-	if conf.VPNServerPassword == "" {
-		return derrors.NewInvalidArgumentError("VPNServerPassword must be set")
-	}
-
 	return nil
 }
 
@@ -42,5 +38,4 @@ func (conf *Config) Print() {
 	log.Info().Str("app", version.AppVersion).Str("commit", version.Commit).Msg("Version")
 	log.Info().Int("port", conf.VPNServerPort).Msg("gRPC port")
 	log.Info().Str("URL", conf.VPNServerAddress).Msg("VPN Server")
-	log.Info().Str("password", conf.VPNServerPassword).Msg("VPN Server Password")
 }

@@ -11,35 +11,32 @@ import (
 
 
 func ValidAddVPNUserRequest(request *grpc_vpn_server_go.AddVPNUserRequest) derrors.Error{
-	// TODO validate organization_id is present
-	if request.Username == "" {
-		return derrors.NewInvalidArgumentError("username must not be empty")
+	if request.OrganizationId == ""{
+		return derrors.NewInvalidArgumentError("organization_id must not be empty")
 	}
 
-	if request.Url.Hostname == ""{
-		return derrors.NewInvalidArgumentError("vpn server hostname must not be empty")
+	if request.Username == "" {
+		return derrors.NewInvalidArgumentError("username must not be empty")
 	}
 
 	return nil
 }
 
 func ValidDeleteVPNUserRequest(request *grpc_vpn_server_go.DeleteVPNUserRequest) derrors.Error{
-	// TODO validate organization_id is present
-	if request.Username == "" {
-		return derrors.NewInvalidArgumentError("username must not be empty")
+	if request.OrganizationId == ""{
+		return derrors.NewInvalidArgumentError("organization_id must not be empty")
 	}
 
-	if request.Url.Hostname == ""{
-		return derrors.NewInvalidArgumentError("vpn server hostname must not be empty")
+	if request.Username == "" {
+		return derrors.NewInvalidArgumentError("username must not be empty")
 	}
 
 	return nil
 }
 
 func ValidGetVPNUserListRequest(request *grpc_vpn_server_go.GetVPNUserListRequest) derrors.Error{
-	// TODO validate organization_id is present
-	if request.Url.Hostname == ""{
-		return derrors.NewInvalidArgumentError("vpn server hostname must not be empty")
+	if request.OrganizationId == ""{
+		return derrors.NewInvalidArgumentError("organization_id must not be empty")
 	}
 	return nil
 }

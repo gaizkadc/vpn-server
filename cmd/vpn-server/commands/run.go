@@ -19,8 +19,15 @@ var runCmd = &cobra.Command{
 	Long:  `Launch the VPN Server`,
 	Run: func(cmd *cobra.Command, args []string) {
 		SetupLogging()
-		log.Info().Msg("Launching VPN Server!")
+		log.Info().Msg("Launching gRPC VPN Server!")
 		cfg.Debug = debugLevel
+
+		cfg.Print()
+		err := cfg.Validate()
+		if err != nil {
+			log.Fatal().Err(err)
+		}
+
 		server := server.NewService(cfg)
 		server.Run()
 	},
@@ -28,6 +35,7 @@ var runCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(runCmd)
-	runCmd.Flags().IntVar(&cfg.VPNServerPort, "port", 5666, "Port to receive management communications")
+	runCmd.Flags().IntVar(&cfg.VPNServerPort, "port", 5666, "Port to launch the gRPC server")
 	runCmd.PersistentFlags().StringVar(&cfg.VPNServerAddress, "vpnServerAddress", "localhost", "VPN Server Address")
+	runCmd.PersistentFlags().StringVar(&cfg.VPNServerAddress, "vpnServerPassword", "password", "VPN Server Password")
 }

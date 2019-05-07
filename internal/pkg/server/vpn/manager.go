@@ -5,14 +5,13 @@
 package vpn
 
 import (
-	"fmt"
+	"github.com/google/uuid"
+	"github.com/nalej/derrors"
 	"github.com/nalej/grpc-common-go"
 	"github.com/nalej/grpc-vpn-server-go"
-	"github.com/nalej/derrors"
 	"github.com/nalej/vpn-server/internal/pkg/config"
 	"github.com/rs/zerolog/log"
 	"os/exec"
-	"github.com/google/uuid"
 )
 
 
@@ -29,14 +28,13 @@ func NewManager(config config.Config) Manager{
 
 // AddVPNUser adds a user to the VPN Server
 func (m * Manager) AddVPNUser (addUserRequest grpc_vpn_server_go.AddVPNUserRequest) (*grpc_vpn_server_go.VPNUser, derrors.Error) {
-	vpnServer := fmt.Sprintf(addUserRequest.Url.Hostname,addUserRequest.Url.Port)
 	// Check if server is up, return an error if it's not
 	// Check if username exists; return an error if it does
 
 	// Execute command:
 	//vpncmd /server Server Name /password:password /adminhub:DEFAULT /cmd UserCreate ABC /GROUP:none /REALNAME:none /NOTE:none
-	exec.Command("vpncmd", "/Server", vpnServer, "/password", m.config.VPNServerPassword, "/adminhub:DEFAULT", "/cmd UserCreate", addUserRequest.Username, "/GROUP:none /REALNAME:none /NOTE:none")
-	log.Debug().Str("Server", vpnServer).Str("Username", addUserRequest.Username).Msg("User created in VPN Server")
+	exec.Command("vpncmd", "/Server", m.config.VPNServerAddress, "/password", m.config.VPNServerPassword, "/adminhub:DEFAULT", "/cmd UserCreate", addUserRequest.Username, "/GROUP:none /REALNAME:none /NOTE:none")
+	log.Debug().Str("Server", m.config.VPNServerAddress).Str("Username", addUserRequest.Username).Msg("User created in VPN Server")
 
 	// Create a password
 	rawPassword, err := uuid.NewUUID()
@@ -47,8 +45,8 @@ func (m * Manager) AddVPNUser (addUserRequest grpc_vpn_server_go.AddVPNUserReque
 	password := rawPassword.String()
 
 	// Execute UserPasswordSet command for Username
-	cmd := exec.Command("vpncmd", "/Server", vpnServer, "/password", m.config.VPNServerPassword, "/adminhub:DEFAULT", "/cmd UserPasswordSet", addUserRequest.Username, "/password", password)
-	log.Debug().Str("Server", vpnServer).Str("Username", addUserRequest.Username).Msg("Password for user created")
+	cmd := exec.Command("vpncmd", "/Server", m.config.VPNServerAddress, "/password", m.config.VPNServerPassword, "/adminhub:DEFAULT", "/cmd UserPasswordSet", addUserRequest.Username, "/password", password)
+	log.Debug().Str("Server", m.config.VPNServerAddress).Str("Username", addUserRequest.Username).Msg("Password for user created")
 
 	err = cmd.Run()
 	if err != nil {
@@ -64,15 +62,13 @@ func (m * Manager) AddVPNUser (addUserRequest grpc_vpn_server_go.AddVPNUserReque
 
 // DeleteVPNUser adds a user to the VPN Server
 func (m * Manager) DeleteVPNUser (deleteUserRequest grpc_vpn_server_go.DeleteVPNUserRequest) (*grpc_common_go.Success, derrors.Error) {
-	vpnServer := fmt.Sprintf(deleteUserRequest.Url.Hostname,deleteUserRequest.Url.Port)
-
 	// Check if server is up, return an error if it's not
 
 	// Check if username exists; return an error if it doesn't
 
 	// Execute command
-	cmd := exec.Command("vpncmd", "/Server", vpnServer, "/password", m.config.VPNServerPassword, "/adminhub:DEFAULT", "/cmd UserDelete", deleteUserRequest.Username)
-	log.Debug().Str("Server", vpnServer).Str("Username", deleteUserRequest.Username).Msg("User deleted from VPN Server")
+	cmd := exec.Command("vpncmd", "/Server", m.config.VPNServerAddress, "/password", m.config.VPNServerPassword, "/adminhub:DEFAULT", "/cmd UserDelete", deleteUserRequest.Username)
+	log.Debug().Str("Server", m.config.VPNServerAddress).Str("Username", deleteUserRequest.Username).Msg("User deleted from VPN Server")
 
 	err := cmd.Run()
 	if err != nil {
@@ -84,12 +80,11 @@ func (m * Manager) DeleteVPNUser (deleteUserRequest grpc_vpn_server_go.DeleteVPN
 
 // ListVPNUsers list current users from a VPN server
 func (m * Manager) ListVPNUsers (listUsersRequest grpc_vpn_server_go.GetVPNUserListRequest) (*grpc_vpn_server_go.VPNUserList, derrors.Error) {
-	vpnServer := fmt.Sprintf(listUsersRequest.Url.Hostname,listUsersRequest.Url.Port)
 	// Check if server is up, return an error if it's not
 
 	// Execute command
-	log.Debug().Str("Server", vpnServer).Msg("Retrieving user list from VPN Server")
-	cmd := exec.Command("vpncmd", "/Server", vpnServer, "/password", m.config.VPNServerPassword, "/adminhub:DEFAULT", "/cmd UserList")
+	log.Debug().Str("Server", m.config.VPNServerAddress).Msg("Retrieving user list from VPN Server")
+	cmd := exec.Command("vpncmd", "/Server", m.config.VPNServerAddress, "/password", m.config.VPNServerPassword, "/adminhub:DEFAULT", "/cmd UserList")
 
 	err := cmd.Run()
 	if err != nil {

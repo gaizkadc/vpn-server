@@ -2,6 +2,8 @@
 
 export PATH=/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin
 
+/nalej/vpn-server $@
+
 echo "Copying config..."
 cp /config/vpn_server.config /usr/vpnserver/vpn_server.config
 

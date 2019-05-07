@@ -57,12 +57,12 @@
   version = "v1.4.0"
 
 [[projects]]
-  digest = "1:31cbe876e2eded723303f666cfdaf248ba2532ce2fd05281516193e69a11b9d1"
+  digest = "1:e7518fcc561ded21ecf3072857e0cd03f39346ec852fba737b581ae9942b0f6a"
   name = "github.com/nalej/grpc-vpn-server-go"
   packages = ["."]
   pruneopts = ""
-  revision = "886c84a658732b4bfa8520e33b99dfe266163ded"
-  version = "v0.0.3"
+  revision = "9073e7aa5351c342604e7be5fd72cbc1388ad936"
+  version = "v0.0.4"
 
 [[projects]]
   digest = "1:3b6d6b1b349b7a4e3325572853b9e1f95b7f87950be55ae3317f8c91fb878d00"
@@ -111,11 +111,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:8309671ea041a80cae0a80724f2ec1a29e1c2774027aec2d487a13306b41ecaf"
+  digest = "1:c83d1e034ab1f1cc75a5475bd2475da6cbc193b30fd617b77b63eadcba65d379"
   name = "golang.org/x/sys"
   packages = ["unix"]
   pruneopts = ""
-  revision = "a43fa875dd822b81eb6d2ad538bc1f4caba169bd"
+  revision = "2953c62de483abe29031e197e72d3b7061f65f91"
 
 [[projects]]
   digest = "1:740b51a55815493a8d0f2b1e0d0ae48fe48953bf7eaf3fcc4198823bf67768c0"
