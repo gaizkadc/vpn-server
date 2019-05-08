@@ -17,8 +17,6 @@ type Config struct {
 	VPNServerPort int
 	// URL of the VPN server
 	VPNServerAddress string
-	// VPNServerPassword
-	VPNServerPassword string
 }
 
 func (conf *Config) Validate() derrors.Error {

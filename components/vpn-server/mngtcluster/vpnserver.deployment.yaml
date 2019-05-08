@@ -28,7 +28,6 @@ spec:
             - "--debug"
             - "--vpnServerAddress=localhost"
             - "--port=5666"
-            - "--password=password"
           securityContext:
             runAsUser: 0
           ports:

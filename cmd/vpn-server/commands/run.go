@@ -37,5 +37,4 @@ func init() {
 	rootCmd.AddCommand(runCmd)
 	runCmd.Flags().IntVar(&cfg.VPNServerPort, "port", 5666, "Port to launch the gRPC server")
 	runCmd.PersistentFlags().StringVar(&cfg.VPNServerAddress, "vpnServerAddress", "localhost", "VPN Server Address")
-	runCmd.PersistentFlags().StringVar(&cfg.VPNServerAddress, "vpnServerPassword", "password", "VPN Server Password")
 }
