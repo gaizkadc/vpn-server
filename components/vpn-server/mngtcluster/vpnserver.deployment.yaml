@@ -23,12 +23,17 @@ spec:
         - name: vpn-server
           image: __NPH_REGISTRY/__NPH_REGISTRY_NAMESPACE/vpn-server:__NPH_VERSION
           imagePullPolicy: Always
+          args:
+            - "run"
+            - "--debug"
+            - "--vpnServerAddress=localhost"
+            - "--port=5666"
           securityContext:
             runAsUser: 0
           ports:
-            - containerPort: 443
-              name: vpn-a
-              protocol: TCP
             - containerPort: 5555
-              name: vpn-b
+              name: vpn-port
+              protocol: TCP
+            - containerPort: 5666
+              name: grpc-port
               protocol: TCP
