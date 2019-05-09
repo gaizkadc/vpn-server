@@ -55,13 +55,13 @@ func (m * Manager) AddVPNUser (addUserRequest grpc_vpn_server_go.AddVPNUserReque
 
 	err := cmd.Run()
 	if err != nil {
-		log.Fatal().Errs("cmd.Run() failed with %s\n", []error{err})
+		return nil, derrors.NewGenericError("error executing UserCreate command", err)
 	}
 
 	// Create a password
 	rawPassword, err := uuid.NewUUID()
 	if err != nil {
-		log.Fatal().Errs("could not create new password", []error{err})
+		return nil, derrors.NewGenericError("error creating password", err)
 	}
 
 	password := rawPassword.String()
@@ -72,7 +72,7 @@ func (m * Manager) AddVPNUser (addUserRequest grpc_vpn_server_go.AddVPNUserReque
 
 	err = cmd.Run()
 	if err != nil {
-		log.Fatal().Errs("cmd.Run() failed with %s\n", []error{err})
+		return nil, derrors.NewGenericError("error executing UserDelete userPasswordSet command", err)
 	}
 
 	// Return user
@@ -94,7 +94,7 @@ func (m * Manager) DeleteVPNUser (deleteUserRequest grpc_vpn_server_go.DeleteVPN
 
 	err := cmd.Run()
 	if err != nil {
-		log.Fatal().Errs("cmd.Run() failed with %s\n", []error{err})
+		return nil, derrors.NewGenericError("error executing UserDelete command", err)
 	}
 
 	return &grpc_common_go.Success {}, nil
@@ -113,14 +113,14 @@ func (m * Manager) ListVPNUsers (listUsersRequest grpc_vpn_server_go.GetVPNUserL
 
 	err := cmd.Run()
 	if err != nil {
-		log.Fatal().Errs("cmd.Run() failed with %s\n", []error{err})
+		return nil, derrors.NewGenericError("error executing UserList command", err)
 	}
 
 	rawUserList := outbuf.String()
 	userList := m.parseRawUserList (rawUserList)
 
 	if err != nil {
-		log.Fatal().Err(err).Msg("error when parsing user list")
+		return nil, derrors.NewGenericError("error when parsing user list", err)
 	}
 
 	grpcUserList := grpc_vpn_server_go.VPNUserList{
