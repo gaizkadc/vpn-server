@@ -29,7 +29,7 @@ const (
 	group = "/GROUP:none"
 	realName = "/REALNAME:none"
 	note = "/NOTE:none"
-	userPassword = "/password"
+	userPassword = "/password:"
 )
 
 // Manager structure with the entities involved in the management of VPN users
@@ -67,7 +67,7 @@ func (m * Manager) AddVPNUser (addUserRequest grpc_vpn_server_go.AddVPNUserReque
 	password := rawPassword.String()
 
 	// Execute UserPasswordSet command for Username
-	cmd = exec.Command(command, cmdMode, m.config.VPNServerAddress, hub, cmdCmd, userPasswordSetCmd, addUserRequest.Username, userPassword, password)
+	cmd = exec.Command(command, cmdMode, m.config.VPNServerAddress, hub, cmdCmd, userPasswordSetCmd, addUserRequest.Username, userPassword+password)
 	log.Debug().Str("Server", m.config.VPNServerAddress).Str("Username", addUserRequest.Username).Msg("Password for user created")
 
 	err = cmd.Run()
