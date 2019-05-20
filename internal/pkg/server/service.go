@@ -39,6 +39,12 @@ func (s *Service) Run() error {
 		log.Fatal().Errs("failed to listen: %v", []error{err})
 	}
 
+	err = vpn.NewVPNHelper().CreateDefaultUser()
+	if err != nil {
+		log.Fatal().Errs("failed to create default user", []error{err})
+	}
+
+
 	// Create handlers
 	manager := vpn.NewManager(s.Configuration)
 	handler := vpn.NewHandler(manager)
@@ -58,5 +64,6 @@ func (s *Service) Run() error {
 	if err := grpcServer.Serve(lis); err != nil {
 		log.Fatal().Errs("failed to serve: %v", []error{err})
 	}
+
 	return nil
 }
