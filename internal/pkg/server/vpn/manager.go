@@ -30,6 +30,9 @@ const (
 	realName = "/REALNAME:none"
 	note = "/NOTE:none"
 	userPassword = "/password:"
+	defaultVPNServer = "localhost"
+	defaultVPNUser = "admin"
+	defaultVPNPassword = "admin"
 )
 
 // Manager structure with the entities involved in the management of VPN users
@@ -48,7 +51,7 @@ func (m * Manager) AddVPNUser (addUserRequest grpc_vpn_server_go.AddVPNUserReque
 	// Check if server is up, return an error if it's not
 	// Check if username exists; return an error if it does
 
-	// Execute command:
+	// Create user
 	//vpncmd /server Server Name /password:password /adminhub:DEFAULT /cmd UserCreate ABC /GROUP:none /REALNAME:none /NOTE:none
 	cmd := exec.Command(command, cmdMode, m.config.VPNServerAddress, hub, cmdCmd,  userCreateCmd, addUserRequest.Username, group, realName, note)
 	log.Debug().Str("Server", m.config.VPNServerAddress).Str("Username", addUserRequest.Username).Msg("User created in VPN Server")
