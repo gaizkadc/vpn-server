@@ -90,12 +90,9 @@ func (m * Manager) DeleteVPNUser (deleteUserRequest grpc_vpn_server_go.DeleteVPN
 	// Check if server is up, return an error if it's not
 
 	// Check if username exists; return an error if it doesn't
+	
+	err := m.execCmd(command, cmdMode, m.config.VPNServerAddress, hub, cmdCmd, userDeleteCmd, deleteUserRequest.Username)
 
-	// Execute command
-	cmd := exec.Command(command, cmdMode, m.config.VPNServerAddress, hub, cmdCmd, userDeleteCmd, deleteUserRequest.Username)
-	log.Debug().Str("Server", m.config.VPNServerAddress).Str("Username", deleteUserRequest.Username).Msg("User deleted from VPN Server")
-
-	err := cmd.Run()
 	if err != nil {
 		return nil, derrors.NewGenericError("error executing UserDelete command", err)
 	}
@@ -150,4 +147,16 @@ func (m * Manager) parseRawUserList (raw string) []string {
 	}
 
 	return userList
+}
+
+// execCmd executes a given command on the command line.
+func (m * Manager) execCmd(cmdName string, args ...string) error {
+	cmd := exec.Command(cmdName, args...)
+	output, err := cmd.CombinedOutput()
+	log.Warn().Str("output", string(output)).Msg("Command output")
+	if err != nil{
+		log.Warn().Str("cmd", cmdName).Strs("args", args).Str("error", err.Error()).Msg("cannot execute command")
+		return err
+	}
+	return nil
 }
