@@ -90,7 +90,7 @@ func (m * Manager) DeleteVPNUser (deleteUserRequest grpc_vpn_server_go.DeleteVPN
 	// Check if server is up, return an error if it's not
 
 	// Check if username exists; return an error if it doesn't
-	
+
 	err := m.execCmd(command, cmdMode, m.config.VPNServerAddress, hub, cmdCmd, userDeleteCmd, deleteUserRequest.Username)
 
 	if err != nil {
