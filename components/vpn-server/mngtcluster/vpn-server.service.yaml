@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: vpn-server-grpc
+  namespace: __NPH_NAMESPACE
+  labels:
+    component: vpn-server
+spec:
+  selector:
+    cluster: management
+    component: vpn-server
+  ports:
+    - name: grpc-port
+      port: 5666
+      protocol: TCP
