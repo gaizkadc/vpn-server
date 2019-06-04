@@ -5,7 +5,8 @@
 FROM siomiz/softethervpn:4.29-alpine
 
 RUN mkdir /config
-ADD dockerenv/vpn_server.config /config/vpn_server.config
+RUN mkdir /vpn-server
+ADD dockerenv/vpn_server.config /vpn-server/vpn_server.config
 ADD dockerenv/startup.sh /config/startup.sh
 RUN chmod 0755 /config/startup.sh
 EXPOSE 5555/tcp 5666/tcp
