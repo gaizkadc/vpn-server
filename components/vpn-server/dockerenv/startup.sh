@@ -1,12 +1,21 @@
-#!/bin/sh
+#!/bin/bash
 
 export PATH=/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin
 
-echo "Copying config..."
-cp /config/vpn_server.config /usr/vpnserver/vpn_server.config
+# Stop old vpn server
+vpnserver stop
+
+# Install VPN Server IF it's not yet installed
+CONFIG=/vpnserver/vpn_server.config
+if [ ! -f "$CONFIG" ]; then
+    echo "First time launching VPN server"
+    cd /
+    cp -r /usr/vpnserver /
+    cp /vpn_server.config /vpnserver/vpn_server.config
+fi
 
 echo "Starting VPN server..."
-vpnserver start
+/vpnserver/vpnserver start
 
 echo "Starting VPN Server code..."
 /nalej/vpn-server $@

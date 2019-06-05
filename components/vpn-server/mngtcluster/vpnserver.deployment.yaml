@@ -34,6 +34,12 @@ spec:
               add:
                 - NET_ADMIN
                 - SYS_ADMIN
+          volumeMounts:
+            - name: dev-net-tun
+              readOnly: true
+              mountPath: /dev/net/tun
+            - name: vpn-server-data
+              mountPath: /vpnserver
           ports:
             - containerPort: 5555
               name: vpn-port
@@ -41,13 +47,12 @@ spec:
             - containerPort: 5666
               name: grpc-port
               protocol: TCP
-          volumeMounts:
-            - name: dev-net-tun
-              readOnly: true
-              mountPath: /dev/net/tun
-      imagePullSecrets:
-      - name: nalej-registry
       volumes:
         - name: dev-net-tun
           hostPath:
             path: /dev/net/tun
+        - name: vpn-server-data
+          persistentVolumeClaim:
+            claimName: vpn-server-data
+      imagePullSecrets:
+      - name: nalej-registry
