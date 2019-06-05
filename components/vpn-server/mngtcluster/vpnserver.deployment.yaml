@@ -54,3 +54,5 @@ spec:
         - name: vpn-server-data
           persistentVolumeClaim:
             claimName: vpn-server-data
+      imagePullSecrets:
+      - name: nalej-registry

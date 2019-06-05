@@ -1,0 +1,11 @@
+{
+  "language": "golang",
+  "application_list": [
+    "vpn-server"
+  ],
+  "tools": [
+    "azure",
+    "docker",
+    "k8s"
+  ]
+}
