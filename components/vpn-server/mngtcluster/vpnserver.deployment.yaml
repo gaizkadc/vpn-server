@@ -39,7 +39,7 @@ spec:
               readOnly: true
               mountPath: /dev/net/tun
             - name: vpn-server-data
-              mountPath: /vpn-server
+              mountPath: /vpnserver
           ports:
             - containerPort: 5555
               name: vpn-port

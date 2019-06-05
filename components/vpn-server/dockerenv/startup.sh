@@ -1,18 +1,17 @@
-#!/bin/sh
+#!/bin/bash
 
 export PATH=/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin
 
 # Install VPN Server IF it's not yet installed
-if [ ! -d "$DIRECTORY" ]; then
-    wget https://github.com/SoftEtherVPN/SoftEtherVPN_Stable/releases/download/v4.29-9680-rtm/softether-vpnserver-v4.29-9680-rtm-2019.02.28-linux-x64-64bit.tar.gz
-    tar -xvzf softether-vpnserver-v4.29-9680-rtm-2019.02.28-linux-x64-64bit.tar.gz
-    rm softether-vpnserver-v4.29-9680-rtm-2019.02.28-linux-x64-64bit.tar.gz
-    cd vpnserver
-    make
+if [ ! -d "$/vpnserver/vpnserver" ]; then
+    vpnserver stop
+    cd /
+    cp -r /usr/vpnserver /
+    cp /vpn_server.config /vpnserver/vpn_server.config
 fi
 
 echo "Starting VPN server..."
-vpnserver start
+/vpnserver/vpnserver start
 
 echo "Starting VPN Server code..."
 /nalej/vpn-server $@
