@@ -65,6 +65,7 @@ func (m * Manager) AddVPNUser (addUserRequest grpc_vpn_server_go.AddVPNUserReque
 	}
 
 	password := rawPassword.String()
+	log.Debug().Str("password", password).Msg(password)
 
 	// Execute UserPasswordSet command for Username
 	cmd = exec.Command(command, cmdMode, m.config.VPNServerAddress, hub, cmdCmd, userPasswordSetCmd, addUserRequest.Username, userPassword, password)
