@@ -1,6 +1,3 @@
-#
-# Copyright (C) 2018 Nalej Group - All Rights Reserved
-#
 
 FROM siomiz/softethervpn:4.29-alpine
 

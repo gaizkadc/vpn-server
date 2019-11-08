@@ -1,5 +1,18 @@
 /*
- * Copyright (C) 2019 Nalej - All Rights Reserved
+ * Copyright 2019 Nalej
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
 
 package server
@@ -44,7 +57,6 @@ func (s *Service) Run() error {
 		log.Fatal().Errs("failed to create default user", []error{err})
 	}
 
-
 	// Create handlers
 	manager := vpn.NewManager(s.Configuration)
 	handler := vpn.NewHandler(manager)
@@ -54,7 +66,7 @@ func (s *Service) Run() error {
 
 	grpc_vpn_server_go.RegisterVPNServerServer(grpcServer, handler)
 
-	if s.Configuration.Debug{
+	if s.Configuration.Debug {
 		log.Info().Msg("Enabling gRPC server reflection")
 		// Register reflection service on gRPC server.
 		reflection.Register(grpcServer)
