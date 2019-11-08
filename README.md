@@ -39,13 +39,6 @@ In order to have all dependencies up-to-date run:
 dep ensure -update -v
 ```
 
-## User client interface
-Explain the main features for the user client interface. Explaining the whole
-CLI is never required. If you consider relevant to explain certain aspects of
-this client, please provided the users with them.
-
-Ignore this entry if it does not apply.
-
 
 ## Contributing
 
