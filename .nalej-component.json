@@ -8,7 +8,6 @@
     "vpn-server"
   ],
   "tools": [
-    "azure",
     "docker",
     "k8s"
   ]
