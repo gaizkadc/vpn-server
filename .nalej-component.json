@@ -8,6 +8,9 @@
   "image_list": [
     "vpn-server"
   ],
+  "component_list": [
+    "vpn-server"
+  ],
   "tools": [
     "docker",
     "k8s"
