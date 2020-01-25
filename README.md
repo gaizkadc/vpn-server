@@ -1,6 +1,6 @@
 # VPN Server
-VPN Server for the Edge Controller. Allows to connect Edge Controllers that reside on customer infrastructure
-to Nalej Platform in a secure way.
+VPN Server for the Edge Controller. Allows Edge Controllers that reside on user infrastructure to connect
+to the Nalej Platform in a secure way.
 
 
 ## Getting Started
@@ -14,8 +14,7 @@ In order to build and compile this repository use the provided Makefile:
 make all
 ```
 
-This operation generates the binaries for this repo, download dependencies,
-run existing tests and generate ready-to-deploy Kubernetes files.
+This operation generates the binaries for this repo, downloads the required dependencies, runs existing tests and generates ready-to-deploy Kubernetes files.
 
 ### Run tests
 
@@ -47,7 +46,7 @@ Please read [contributing.md](contributing.md) for details on our code of conduc
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/nalej/vpn-server/tags). 
+We use [SemVer](http://semver.org/) for versioning. For the available versions, see the [tags on this repository](https://github.com/nalej/vpn-server/tags). 
 
 ## Authors
 
